@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14268491357020" configfile="/MoneyManager/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="274" id="pf14268499413731" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="122" y="754" id="pf14268499413735" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" outlinks="pf14272621013140 pf14272621013141" inlinks="pf14272621013140" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="338" y="754" id="pf14272621013142" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14272676644336 pf14272676791259 pf142726769592212 pf142727103422914" inlinks="pf14272621013141" path="/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Postal.xhtml" x="554" y="178" id="pf14272676644337" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" inlinks="pf14272676644336" path="/Postal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Muthood.xhtml" x="554" y="562" id="pf142726767912510" referenceLink="//@navigationRule.1/@navigationCase.2/@toViewId|" inlinks="pf14272676791259" path="/Muthood.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Sriram.xhtml" x="554" y="1330" id="pf142726769592213" referenceLink="//@navigationRule.1/@navigationCase.3/@toViewId|" inlinks="pf142726769592212" path="/Sriram.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="bank.xhtml" x="554" y="946" id="pf142727103422915" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf142735620776416 pf14274527222530" inlinks="pf142727103422914 pf142735765950718" path="/bank.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="certificateDetails.xhtml" x="770" y="946" id="pf142735620776417" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf142735765950718 pf142735765950719" inlinks="pf142735620776416 pf142735765950719 pf14274527222530" path="/certificateDetails.xhtml"/>
+  <links id="pf14272621013141" target="pf14272621013142" source="pf14268499413735" outcome="success" redirect="true"/>
+  <links id="pf14272676644336" target="pf14272676644337" source="pf14272621013142" outcome="Postal" redirect="true" fromaction="#{categoryNavigator.launchPage(category)}"/>
+  <links id="pf14272676791259" target="pf142726767912510" source="pf14272621013142" outcome="Muthood" redirect="true" fromaction="#{categoryNavigator.launchPage(category)}"/>
+  <links id="pf142726769592212" target="pf142726769592213" source="pf14272621013142" outcome="Sriram" redirect="true" fromaction="#{categoryNavigator.launchPage(category)}"/>
+  <links id="pf142727103422914" target="pf142727103422915" source="pf14272621013142" outcome="Bank" redirect="true" fromaction="#{categoryNavigator.launchPage(category)}"/>
+  <links id="pf142735620776416" target="pf142735620776417" source="pf142727103422915" outcome="success" redirect="true" fromaction="#{bankAction.loadCertificatePage(category.certificateNumber)}"/>
+  <links id="pf142735765950718" target="pf142727103422915" source="pf142735620776417" outcome="success" redirect="true" fromaction="#{bankAction.updateCertificate}"/>
+  <links id="pf14274527222530" target="pf142735620776417" source="pf142727103422915" outcome="success" redirect="true" fromaction="#{bankAction.loadNewCertificatePage}"/>
+  <links id="pf14272621013140" target="pf14268499413735" source="pf14268499413735" outcome="login" redirect="true">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf142735765950719" target="pf142735620776417" source="pf142735620776417" outcome="failure" redirect="true" fromaction="#{bankAction.updateCertificate}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+</pageflow:Pageflow>

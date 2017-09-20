@@ -1,0 +1,149 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--<![endif]-->
+<title>Money Manager- Bank</title>
+<h:head>
+	<h:outputStylesheet library="css" name="menustyle.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="table-style.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="common.css"></h:outputStylesheet>
+	<h:outputScript library="js" name="jquery-latest.js"></h:outputScript>
+	<h:outputScript library="js" name="jquery.tablesorter.js"></h:outputScript>
+	 
+	
+	<style type="text/css">
+.maturedBy{
+ float : right;
+ clear: right;
+ font-family: verdana;
+ font-size: 12px;
+ margin-top: 4%;
+ margin-right: 15%;
+}
+    
+</style>
+<script>
+$(document).ready(function() 
+	    {  
+	        $("#myTable").tablesorter();
+	    } 
+	); 
+</script>
+</h:head>
+<h:body>
+<h:form>
+	<ul id="menu-bar">
+		<li ><a href="home.xhtml">Home</a></li>
+		<ui:repeat var="category" value="#{loginbean.categories}">
+		 	<ui:fragment rendered="#{category eq 'Bank'}">
+  					<li class="active">    
+							<h:commandLink action="#{categoryNavigator.launchPage(category)}" value="#{category}"/>
+			 		</li>
+  			 </ui:fragment>
+  			 <ui:fragment rendered="#{category  ne 'Bank'}">
+ 		 			<li>    
+							<h:commandLink action="#{categoryNavigator.launchPage(category)}" value="#{category}"/>
+					</li>
+			 </ui:fragment>
+		</ui:repeat>
+	</ul>
+	<div class="logout">	
+		<h:commandLink action="#{loginbean.logout}" value="Logout" />
+	</div>
+	
+	<div class="maturedBy">
+		<h:outputText  value="#{msgs.maturedBy}"/> :
+		<h:selectOneMenu value="#{categoryNavigator.maturingByDays}" onchange="">
+   			<f:selectItems value="#{categoryNavigator.certificatesMaturedBy}" />
+   			<f:ajax listener="#{categoryNavigator.filterCertificates}" render="@form"/> 
+    	</h:selectOneMenu>
+	</div>
+	<div class="scroll">
+		<!-- <h:dataTable value="#{categoryNavigator.categoryDetailsList}" var="o" id="myTable" 
+			styleClass="tablesorter">
+			
+			<h:column >
+				<f:facet name="header">Certificate Number</f:facet>
+					<h:commandLink action="#{bankAction.loadCertificatePage(o.certificateNumber)}" value="#{o.certificateNumber}" />						
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Deposit Amount</f:facet>
+    				#{o.depositAmount}
+    			</h:column>
+    			
+    		<h:column>
+				<f:facet name="header">Date of Deposit</f:facet>
+    				#{o.depositedDateStr}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Maturity Amount</f:facet>
+    				#{o.maturityAmount}
+    			</h:column>
+    			
+			<h:column>
+				<f:facet name="header">Maturity Date</f:facet>
+    				#{o.maturityDateStr}
+    			</h:column>
+    		
+    		<h:column>
+				<f:facet name="header">Interest Rate</f:facet>
+    				#{o.interestRate}
+    			</h:column>
+    			
+    			<h:column>
+				<f:facet name="header">Bank</f:facet>
+    				#{o.categoryName}
+    			</h:column>
+    			
+    			<h:column>
+				<f:facet name="header">Name Under Taken</f:facet>
+    				#{o.nameUnder}
+    			</h:column>
+		</h:dataTable> -->
+			<table id="myTable" class="tablesorter"> 
+			<thead > 
+				<tr>
+					<th>Certificate Number</th>
+					<th>Deposit Amount</th>
+					<th>Date of Deposit</th>
+					<th>Maturity Amount</th>
+					<th>Maturity Date</th>
+					<th>Interest Rate</th>
+					<th>Bank</th>
+					<th>Name Under Taken</th>
+					<th>Delete</th>  
+				</tr>
+				</thead>
+				<tbody> 
+				<c:forEach items="#{categoryNavigator.categoryDetailsList}" var="category" varStatus="status">
+					<tr>
+						<td><h:commandLink action="#{bankAction.loadCertificatePage(category.certificateNumber)}" value="${category.certificateNumber}" /></td>
+						<td>${category.depositAmount}</td>
+						<td>${category.depositedDateStr}</td>
+						<td>${category.maturityAmount}</td>
+						<td>${category.maturityDateStr}</td>
+						<td>${category.interestRate}</td>
+						<td>${category.categoryName}</td>
+						<td>${category.nameUnder}</td>
+						<td><h:commandLink onclick="if (!confirm('Really want to delete?')) return false;"   action="#{bankAction.deleteCertificate(category.certificateNumber)}" value="Delete" /></td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<h:commandLink  action="#{bankAction.loadNewCertificatePage}" style="float:left;margin-left:15%;font-family:verdana;margin-top:3%;font-size:13px" value="Add new Certificate"></h:commandLink>
+		
+	 
+</h:form>
+</h:body>
+</html>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<resource-bundle>
+			<base-name>messageResources</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+	</application>
+	<managed-bean>
+		<managed-bean-name>loginbean</managed-bean-name>
+		<managed-bean-class>com.test.login.LoginBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>moneyManagerDao</property-name>
+			<value>#{moneyManagerDao}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>loginModel</property-name>
+			<value>#{loginModel}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>bankAction</managed-bean-name>
+		<managed-bean-class>com.test.categories.BankAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>moneyManagerDao</property-name>
+			<value>#{moneyManagerDao}</value>
+		</managed-property>	
+		<managed-property>
+			<property-name>categoryDetails</property-name>
+			<value>#{categoryDetails}</value>
+		</managed-property>	
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>categoryNavigator</managed-bean-name>
+		<managed-bean-class>com.test.categories.CategoryNavigator</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>moneyManagerDao</property-name>
+			<value>#{moneyManagerDao}</value>
+		</managed-property>		
+	</managed-bean>
+	
+
+	<managed-bean>
+		<managed-bean-name>loginModel</managed-bean-name>
+		<managed-bean-class>com.test.model.LoginModel</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>categoryDetails</managed-bean-name>
+		<managed-bean-class>com.test.model.CategoryDetails</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>/home.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{categoryNavigator.launchPage(category)}</from-action>	
+			<from-outcome>Bank</from-outcome>		
+			<to-view-id>/bank.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{categoryNavigator.launchPage(category)}</from-action>
+			<from-outcome>Postal</from-outcome>			
+			<to-view-id>/Postal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{categoryNavigator.launchPage(category)}</from-action>
+			<from-outcome>Muthood</from-outcome>			
+			<to-view-id>/Muthood.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{categoryNavigator.launchPage(category)}</from-action>
+			<from-outcome>Sriram</from-outcome>						
+			<to-view-id>/Sriram.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/bank.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{bankAction.loadCertificatePage(category.certificateNumber)}</from-action>	
+			<from-outcome>success</from-outcome>		
+			<to-view-id>/certificateDetails.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+		<navigation-rule>
+		<from-view-id>/bank.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{bankAction.loadNewCertificatePage}</from-action>	
+			<from-outcome>success</from-outcome>		
+			<to-view-id>/certificateDetails.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/certificateDetails.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{bankAction.updateCertificate}</from-action>	
+			<from-outcome>success</from-outcome>		
+			<to-view-id>/bank.xhtml</to-view-id>			
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{bankAction.updateCertificate}</from-action>	
+			<from-outcome>failure</from-outcome>		
+			<to-view-id>/certificateDetails.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/bank.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{bankAction.deleteCertificate(category.certificateNumber)}</from-action>	
+			<from-outcome>success</from-outcome>		
+			<to-view-id>/bank.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+		<navigation-rule>
+		<from-view-id>/bank.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{bankAction.deleteCertificate(category.certificateNumber)}</from-action>	
+			<from-outcome>failure</from-outcome>		
+			<to-view-id>/bank.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<lifecycle>
+		<phase-listener id="nocache">com.test.filter.CacheControlPhaseListener</phase-listener>
+	</lifecycle>
+
+</faces-config>

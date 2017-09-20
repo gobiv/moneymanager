@@ -1,0 +1,33 @@
+ <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->  <!--<![endif]-->
+<h:head>
+<title>MoneyManager</title>
+ <h:outputStylesheet library="css" name="loginStyle.css"  /> 
+ </h:head>
+<h:body>
+<div class="container">
+	<section id="content">
+	<h1>Money Manager</h1>
+	<h:form>
+		<div>
+			<h:inputText  value="#{loginbean.loginModel.username}" /> 
+		</div>
+		<div>
+		<h:inputSecret value="#{loginbean.loginModel.password}" />
+		</div>
+		<div>
+			<h:outputText value="#{loginbean.message}" class="message"></h:outputText>
+		</div>
+		<div>
+				<h:commandButton action="#{loginbean.authenticateUser}" value="Submit" />
+		</div>
+	</h:form>
+	</section>
+	</div>
+</h:body>
+</html>

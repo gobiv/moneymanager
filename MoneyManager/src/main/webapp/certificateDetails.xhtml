@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+ <meta name="viewport" content="width=device-width, initial-scale=1" />	
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--<![endif]-->
+<title>Money Manager- Certificate Details</title>
+<h:head>
+	<h:outputStylesheet library="css" name="menustyle.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="pure-min.css"></h:outputStylesheet>	
+	<h:outputStylesheet library="css" name="common.css"></h:outputStylesheet>
+	<style type="text/css">
+.box{	
+	-webkit-box-shadow: 8px 17px 74px -3px rgba(33,17,33,0.47);
+	-moz-box-shadow: 8px 17px 74px -3px rgba(33,17,33,0.47);
+	box-shadow: 8px 17px 74px -3px rgba(33,17,33,0.47);
+}
+</style>
+</h:head>
+<h:body>
+<h:form styleClass="pure-form pure-form-aligned">
+	<ul id="menu-bar">
+		<li ><a href="home.xhtml">Home</a></li>
+		<ui:repeat var="category" value="#{loginbean.categories}">
+		 	<ui:fragment rendered="#{category eq 'Bank'}">
+  					<li class="active">    
+							<h:commandLink action="#{categoryNavigator.launchPage(category)}" value="#{category}"/>
+			 		</li>
+  			 </ui:fragment>
+  			 <ui:fragment rendered="#{category  ne 'Bank'}">
+ 		 			<li>    
+							<h:commandLink action="#{categoryNavigator.launchPage(category)}" value="#{category}"/>
+					</li>
+			 </ui:fragment>
+		</ui:repeat>
+	</ul>
+	<div class="logout">	
+		<h:commandLink action="#{loginbean.logout}" value="Logout" />
+	</div>
+	
+	  <fieldset class="box" >
+        <div class="pure-control-group">
+          <label for="certificateNumber">Certificate Number</label> : <h:inputText value="#{bankAction.categoryDetails.certificateNumber}" /> 
+        </div>
+ 
+        <div class="pure-control-group">
+           <label for="certificateNumber">Deposit Amount</label>  :  <h:inputText value="#{bankAction.categoryDetails.depositAmount}" /> 
+        </div>
+
+        <div class="pure-control-group">
+             <label for="certificateNumber">Date of Deposit</label> :  
+             <h:inputText value="#{bankAction.categoryDetails.depositedDate}" >
+             	<f:convertDateTime pattern="dd-MM-yyyy" />
+             </h:inputText> 
+        </div>
+
+        <div class="pure-control-group">
+              <label for="certificateNumber">Date of Maturity</label>  : 
+              	<h:inputText value="#{bankAction.categoryDetails.maturityDate}" >
+              		<f:convertDateTime pattern="dd-MM-yyyy" />
+              </h:inputText> 
+        </div>
+        
+         <div class="pure-control-group">
+             <label for="certificateNumber">Maturity Amount</label>  :  <h:inputText value="#{bankAction.categoryDetails.maturityAmount}" /> 
+        </div>
+        
+         <div class="pure-control-group">
+              <label for="certificateNumber">Interest Rate</label>  : <h:inputText value="#{bankAction.categoryDetails.interestRate}" /> 
+        </div>
+         
+         <div class="pure-control-group">
+             <label for="certificateNumber">Bank Name</label> :  <h:inputText value="#{bankAction.categoryDetails.categoryName}" /> 
+        </div>
+        
+        <div class="pure-control-group">
+             <label for="certificateNumber">Name</label> :  <h:inputText value="#{bankAction.categoryDetails.nameUnder}" /> 
+        </div>
+
+        <div class="pure-controls">
+           <h:commandButton action="#{bankAction.updateCertificate}" styleClass="pure-button pure-button-primary" value="Submit"></h:commandButton>
+           <h:messages style="color:red"/>
+        </div>
+    </fieldset>
+	
+  
+</h:form>
+</h:body>
+</html>

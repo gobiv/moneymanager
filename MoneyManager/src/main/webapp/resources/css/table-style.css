@@ -1,0 +1,41 @@
+.hovertable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+	width:90%;
+	heigth:60%;
+	table-layout: fixed;
+	border-collapse: collapse;
+	display: table;
+	
+}
+.hovertable_th {
+	background-color:#c3dde0;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;	
+	width:100%; 
+}
+.hovertable_tr_odd {
+	background-color:#d4e3e5;
+}
+.hovertable_tr_even {
+	background-color:#d4e3aa;
+}
+.hovertable_td {
+	border-width: 1px;
+	padding: 20px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+.scroll {
+	margin-left:5%;
+	margin-top:8%;
+    max-height: 50%;
+    overflow: auto;
+}
+  

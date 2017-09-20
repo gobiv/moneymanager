@@ -1,0 +1,9 @@
+	 .logout{	
+	float:right;
+	clear:right;
+	text-align: right;  
+	padding-right:100px;
+	padding-top:10px;
+	font: 15px Sans-serif;
+	font-style: italic;
+}

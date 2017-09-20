@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--<![endif]-->
+<title>Money Manager</title>
+<h:head>
+	<h:outputStylesheet library="css" name="menustyle.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="table-style.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="common.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputScript library="js" name="jquery-latest.js"></h:outputScript>
+	<h:outputScript library="js" name="jquery.tablesorter.js"></h:outputScript>
+<script>
+$(document).ready(function() 
+	    {  
+	        $("#myTable").tablesorter();
+	    } 
+	); 
+</script>	
+	
+	<style type="text/css">
+ 
+</style>
+</h:head>
+<h:body>
+<h:form>
+	<ul id="menu-bar">
+		<li class="active"><a href="home.xhtml">Home</a></li>
+		<ui:repeat var="category" value="#{loginbean.categories}">
+			<li>     
+				<h:commandLink action="#{categoryNavigator.launchPage(category)}" value="#{category}"/>
+			</li>
+		</ui:repeat>
+		
+	</ul>
+	<div class="logout">	
+		<h:commandLink action="#{loginbean.logout}" value="Logout" />
+	</div>
+	<!-- <div class="centrebox">
+		<h:dataTable value="#{loginbean.priorityCategoryDetailsList}" var="o"
+			styleClass="hovertable" headerClass="hovertable_th"
+			rowClasses="hovertable_tr_odd,.hovertable_tr_even" cellpadding="10px" width="80%">
+
+			<h:column >
+				<f:facet name="header"><h:outputText  value="#{msgs.certificateNumber}"/></f:facet>
+					#{o.certificateNumber}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header"><h:outputText  value="#{msgs.depositAmount}"/></f:facet>
+    				#{o.depositAmount}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header"><h:outputText  value="#{msgs.maturityAmount}"/></f:facet>
+    				#{o.maturityAmount}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header"><h:outputText  value="#{msgs.dateOfMaturity}"/></f:facet>
+    				#{o.maturityDateStr}
+    			</h:column>
+
+		</h:dataTable>
+	</div> -->
+	<h3>Listing Certificates maturing in few days</h3>
+	<div class="scroll">
+			<table id="myTable" class="tablesorter"> 
+			<thead > 
+				<tr>
+					<th>Certificate Number</th>
+					<th>Deposit Amount</th>
+					<th>Date of Deposit</th>
+					<th>Maturity Amount</th>
+					<th>Maturity Date</th>
+					<th>Interest Rate</th>
+					<th>Bank</th>
+					<th>Name Under Taken</th>
+				</tr>
+				</thead>
+				<tbody> 
+				<c:forEach items="#{loginbean.priorityCategoryDetailsList}" var="category" varStatus="status">
+					<tr>
+						<td><h:commandLink action="#{bankAction.loadCertificatePage(category.certificateNumber)}" value="${category.certificateNumber}" /></td>
+						<td>${category.depositAmount}</td>
+						<td>${category.depositedDateStr}</td>
+						<td>${category.maturityAmount}</td>
+						<td>${category.maturityDateStr}</td>
+						<td>${category.interestRate}</td>
+						<td>${category.categoryName}</td>
+						<td>${category.nameUnder}</td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	
+	
+</h:form>
+</h:body>
+</html>
