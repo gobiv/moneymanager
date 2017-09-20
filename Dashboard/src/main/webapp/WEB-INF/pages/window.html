@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<html>
+<head>
+    <title>Simulate delay when callback returned,like it can be when asynchronous ajax request called from
+        callback</title>
+    <script src="../../resources/bootstrap/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../resources/script/jquery-paged-scroll.js"></script>
+</head>
+<body>
+<h1>Scroll to  the bottom to see pages are loaded</h1>
+<div id="largeData"></div>
+
+<script type="text/javascript">
+function getDetails(startVal,endVal) {
+    $.ajax({
+        url : 'http://localhost:8080/Dashboard/resources/ExportedXMLLeft.xml',
+                 type:"GET",
+        data: { start: startVal, end : endVal },
+        success : function(data) {
+      	//  $('ul.timeline').html("");
+            var parsed = $.parseJSON(data)
+            console.log("Parsed Value: "+parsed);
+            //Setting next start and end values
+            var cList = $('ul.timeline');
+            $.each(parsed, function(i, obj) {
+          	  var txt1 ="<li class='time-label'><span class='bg-red'>"+obj.uploadedDateStr+"</span></li>";
+          	  var txt2 ="<li><span class='glyphicon glyphicon-home'></span>";
+          	  var txt3="<div class='panel panel-default timeline-item'>";
+          	  var txt4="<div class='panel-heading'>"+obj.itemHeader+"</div>";
+          	  var txt5= "<div class='panel-body'>"+obj.description+"</div></div></li>";
+          	  
+          	  var html =  txt2 +txt3+txt4+txt5;
+          	  if (typeof obj.start === "undefined") {
+          	  jQuery('<li/>', {		        					    
+					    html: txt1
+					}).appendTo(cList);
+
+
+          	  jQuery('<li/>', {		        					    
+					    html: html
+					}).appendTo(cList);
+          	  }
+          	  
+          	  if(typeof obj.start != "undefined"){
+          		  console.log("Next start value to fetch: "+obj.start);
+                    console.log("Next end value to fetch: "+obj.end);  
+          	  }
+          	  
+              
+                $("input[id=start]").val(obj.start+"")
+                $("input[id=end]").val(obj.end+"")
+                
+               // console.log( $('ul.timeline').html());
+          	});
+        }
+    });
+}
+
+    $(document).ready(function (e) {
+        /*  for (var i = 0; i < 50; i++) {
+             $('#largeData').append("<div>Test</div><br>");
+             $("input[id=hid]").val(3);
+        }  */
+    	getDetails();
+    });
+
+    $(window).paged_scroll({
+        handleScroll:function (page,container,doneCallback) {
+            setTimeout(function () {
+                console.log("Page is:", page);
+                $('#largeData').append("Appending data for page:" + page + "<div>DATA DATA DATA</div><br><div>DATA</div><br><div>DATA</div><br><div>DATA DATA DATA</div><br><div>DATA</div><br><div>DATA</div><br>");
+ //               doneCallback();
+                 
+            }, 1000);
+
+            return true;
+        },
+        // Uncomment to enable infinite scroll
+        //pagesToScroll : 5,
+        triggerFromBottom:'5%',
+        loader:'<div class="loader"></div>',
+        pagesToScroll:3,
+        targetElement:$('#largeData'),
+        debug:true 
+    });
+
+</script>
+<input hidden value = "" id="hid"/>
+</body>
+</html>
