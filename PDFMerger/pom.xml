@@ -3,11 +3,11 @@
   	http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>Dashboard</groupId>
-	<artifactId>Dashboard</artifactId>
+	<groupId>PDFMerger</groupId>
+	<artifactId>PDFMerger</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0</version>
-	<name>Dashboard</name>
+	<name>PDFMerger</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
