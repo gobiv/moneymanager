@@ -29,7 +29,7 @@ import com.spring.model.DashboardItems;
 
 @Controller
 public class DashboardController {
- // this is test class
+
 	List<DashboardItems> data = new ArrayList<DashboardItems>();
 	int numberOfPages = 0;
 
